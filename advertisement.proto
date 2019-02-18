@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+package tutorial;
+
+message Advertisement {
+    required sint32 rssi = 1;
+    required bytes mac = 2;
+    required bytes data = 3;
+    optional bytes scan_response = 4;
+    required int32 timestamp = 5;
+    required bool connectable = 6 [default = true];
+    enum ScanType {
+        BLE = 0;
+        probeRequest = 1;
+        wifiBeacon = 2;
+    }
+    required ScanType type = 7;
+}
+
+message ScanList {
+    required string sourceID = 1;
+    required int32 timestamp = 2;
+    required int32 version = 3 [default = 3];
+    optional string sourceType = 4 [default = "GATEWAY"];
+    repeated Advertisement ads = 5;
+}
